@@ -38,7 +38,7 @@ const categoryLink = (name, image, searchQuery) => {
 
 const vouchersLink = () => {
   return (
-    <a href="https://mailchi.mp/ff51d27655af/oogo-vouchers" className={css.location}>
+    <NamedLink name="VouchersPage" className={css.location}>
       <div className={css.imageWrapper}>
         <div className={css.aspectWrapper}>
           <LazyImage src={vouchersImage} alt={'Vouchers'} className={css.locationImage} />
@@ -47,7 +47,7 @@ const vouchersLink = () => {
       <div className={css.linkText}>
         <span className={css.locationName}>Vouchers</span>
       </div>
-    </a>
+    </NamedLink>
   );
 };
 

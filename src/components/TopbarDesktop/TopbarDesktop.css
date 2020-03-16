@@ -274,8 +274,7 @@
 }
 
 .profileSettingsLink,
-.yourListingsLink,
-.walletLink{
+.yourListingsLink {
   @apply --marketplaceH4FontStyles;
   position: relative;
   display: block;
