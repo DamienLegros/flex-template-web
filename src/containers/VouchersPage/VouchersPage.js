@@ -1,6 +1,5 @@
 import React from 'react';
 import config from '../../config';
-import { twitterPageURL } from '../../util/urlHelpers';
 import { StaticPage, TopbarContainer } from '..';
 import {
   LayoutSingleColumn,
@@ -8,14 +7,12 @@ import {
   LayoutWrapperMain,
   LayoutWrapperFooter,
   Footer,
-  ExternalLink,
 } from '../../components';
 
+import { VoucherForm } from '../../forms';
 import css from './VouchersPage.css';
 
 const VouchersPage = () => {
-  const { siteTwitterHandle, siteFacebookPage } = config;
-  const siteTwitterPage = twitterPageURL(siteTwitterHandle);
 
   // prettier-ignore
   return (
@@ -35,15 +32,7 @@ const VouchersPage = () => {
 
         <LayoutWrapperMain className={css.staticPageWrapper}>
           <h1 className={css.pageTitle}>Vouchers</h1>
-          <div className={css.contentWrapper}>
-             <div className={css.contentSide}>
-              <p className={css.contentQuote}>Give the possibility of childcare to your friends !</p>
-            </div> 
-
-            <div className={css.contentMain}>
-              
-            </div>
-          </div>
+          {VoucherForm}
         </LayoutWrapperMain>
 
         <LayoutWrapperFooter>

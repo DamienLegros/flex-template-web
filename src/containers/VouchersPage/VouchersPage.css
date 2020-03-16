@@ -80,3 +80,14 @@
   font-style: italic;
   color: #FF685B;
 }
+
+.vouchers {
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+
+  @media (--viewportMedium) {
+    flex-direction: row;
+    margin-top: 57px;
+  }
+}
