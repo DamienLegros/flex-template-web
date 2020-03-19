@@ -8,6 +8,8 @@ import { NamedLink } from '..';
 
 import css from './SectionCategories.css';
 
+import { ensureCurrentUser } from '../../util/data';
+
 import babysitterImage from './images/babysitters.jpg';
 import childminderImage from './images/childminders.jpg';
 import nannyImage from './images/nannies.jpg';
@@ -36,20 +38,9 @@ const categoryLink = (name, image, searchQuery) => {
   );
 };
 
-const vouchersLink = () => {
-  return (
-    <NamedLink name="VouchersPage" className={css.location}>
-      <div className={css.imageWrapper}>
-        <div className={css.aspectWrapper}>
-          <LazyImage src={vouchersImage} alt={'Vouchers'} className={css.locationImage} />
-        </div>
-      </div>
-      <div className={css.linkText}>
-        <span className={css.locationName}>Vouchers</span>
-      </div>
-    </NamedLink>
-  );
-};
+const currentUser = null;
+const user = ensureCurrentUser(currentUser);
+const currentUserLoaded = !!user.id;
 
 const SectionCategories = props => {
   const { rootClassName, className } = props;
@@ -66,7 +57,29 @@ const SectionCategories = props => {
         {categoryLink('Childminders', childminderImage, 'pub_category=childminder')}
         {categoryLink('Nannies', nannyImage, 'pub_category=nanny')}
         {categoryLink('Maternity Nurses', maternityNurseImage, 'pub_category=maternity_nurse')}
-        {vouchersLink()}
+        { currentUserLoaded ? (
+      <NamedLink name="VouchersPage" className={css.location}>
+      <div className={css.imageWrapper}>
+        <div className={css.aspectWrapper}>
+          <LazyImage src={vouchersImage} alt={'Vouchers'} className={css.locationImage} />
+        </div>
+      </div>
+      <div className={css.linkText}>
+        <span className={css.locationName}>Vouchers</span>
+      </div>
+      </NamedLink>
+      ) : (
+      <NamedLink name="VouchersPage" className={css.location}>
+      <div className={css.imageWrapper}>
+        <div className={css.aspectWrapper}>
+          <LazyImage src={vouchersImage} alt={'Vouchers'} className={css.locationImage} />
+        </div>
+      </div>
+      <div className={css.linkText}>
+        <span className={css.locationName}>Vouchers</span>
+      </div>
+      </NamedLink>
+    ) }
       </div>
       <div className={css.locationRequest}>
         Don’t see your area?

@@ -19,9 +19,23 @@ const VoucherFormComponent = props => (
         formId,
         handleSubmit,
         inProgress,
+        amountSelected,
         intl,
         invalid,
       } = fieldRenderProps;
+
+       // amount
+      const amountLabel = intl.formatMessage({
+        id: 'VoucherForm.amountLabel',
+      });
+      const amountPlaceholder = intl.formatMessage({
+        id: 'VoucherForm.amountPlaceholder',
+      });
+      const amountRequiredMessage = intl.formatMessage({
+        id: 'VoucherForm.amountRequired',
+      });
+      const amountRequired = validators.requiredIntNoTrim(amountRequiredMessage);
+      const amountValidators = validators.composeValidators(amountRequired);
 
       // email
       const emailLabel = intl.formatMessage({
@@ -44,7 +58,16 @@ const VoucherFormComponent = props => (
       const submitDisabled = invalid || submitInProgress;
 
       return (
-        <Form className={classes} onSubmit={handleSubmit}>
+        <Form className={classes} onSubmit={handleSubmit} amount={amountSelected}>
+          <FieldTextInput
+            type="amount"
+            id={formId ? `${formId}.amount` : 'amount'}
+            name="amount"
+            autoComplete="amount"
+            label={amountLabel}
+            placeholder={amountPlaceholder}
+            validate={amountValidators}
+          />
           <div>
             <FieldTextInput
               type="email"
@@ -58,7 +81,7 @@ const VoucherFormComponent = props => (
           </div>
           <div className={css.bottomWrapper}>
             <PrimaryButton type="submit" inProgress={submitInProgress} disabled={submitDisabled}>
-              <FormattedMessage id="VoucherForm.logIn" />
+              <FormattedMessage id="VoucherForm.buy" />
             </PrimaryButton>
           </div>
         </Form>
@@ -86,5 +109,6 @@ VoucherFormComponent.propTypes = {
 
 const VoucherForm = compose(injectIntl)(VoucherFormComponent);
 VoucherForm.displayName = 'VoucherForm';
+
 
 export default VoucherForm;

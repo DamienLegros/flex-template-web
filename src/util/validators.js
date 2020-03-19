@@ -34,6 +34,10 @@ export const requiredStringNoTrim = message => value => {
   return typeof value === 'string' && value.length > 0 ? VALID : message;
 };
 
+export const requiredIntNoTrim = message => value => {
+  return typeof value === 'int' && value.length > 0 ? VALID : message;
+};
+
 // DEPRECATED in favor of required
 export const requiredBoolean = message => value => {
   return typeof value === 'boolean' ? VALID : message;
