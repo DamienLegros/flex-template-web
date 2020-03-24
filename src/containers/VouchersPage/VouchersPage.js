@@ -34,7 +34,7 @@ export class VouchersPageComponent extends Component {
       tab
     } = this.props;
 
-    const isChoosen = tab === '50';
+    var isChoosen = (tab === '50Page');
     const from = location.state && location.state.from ? location.state.from : null;
 
     const fromState = { state: from ? { from } : null };
@@ -120,19 +120,16 @@ export class VouchersPageComponent extends Component {
   
   const { bool, func, object, oneOf, shape } = PropTypes;
   
-  VouchersPageComponent.propTypes = {
-    submitSignup: func.isRequired,
-    scrollingDisabled: bool.isRequired,
-    tab: oneOf(['50', 'custom']),
-  
-    onManageDisableScrolling: func.isRequired,
-  
-    // from withRouter
-    location: shape({ state: object }).isRequired,
-  
-    // from injectIntl
-    intl: intlShape.isRequired,
-  };
+  	VouchersPageComponent.propTypes = {
+  submitSignup: func.isRequired,
+  scrollingDisabled: bool.isRequired,
+  tab: oneOf(['50', 'custom']),
+  onManageDisableScrolling: func.isRequired,
+  // from withRouter
+  location: shape({ state: object }).isRequired,
+  // from injectIntl
+  intl: intlShape.isRequired,
+};
 
   const mapStateToProps = state => {
     return {
