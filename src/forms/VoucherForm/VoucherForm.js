@@ -4,8 +4,9 @@ import { compose } from 'redux';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form as FinalForm } from 'react-final-form';
 import classNames from 'classnames';
-import { Form, PrimaryButton, FieldTextInput, NamedLink } from '../../components';
+import { Form, PrimaryButton, FieldTextInput, FieldCurrencyInput, NamedLink } from '../../components';
 import * as validators from '../../util/validators';
+import { currencyConfig } from '../../util/test-data';
 
 import css from './VoucherForm.css';
 
@@ -26,47 +27,54 @@ const VoucherFormComponent = props => (
 
        // amount
       const amountLabel = intl.formatMessage({
-        id: 'VoucherForm.amountLabel',
+        id: 'Voucher Value',
       });
       const amountPlaceholder = intl.formatMessage({
-        id: 'VoucherForm.amountPlaceholder',
+        id: 'Value Placeholder',
       });
       const amountRequiredMessage = intl.formatMessage({
-        id: 'VoucherForm.amountRequired',
+        id: 'Amount Required',
       });
       const amountRequired = validators.requiredIntNoTrim(amountRequiredMessage);
       const amountValidators = validators.composeValidators(amountRequired);
+      
+      const currencyConfigEUR = {
+        currencyConfig,
+        currency: 'EUR',
+      };
 
       // email
       const emailLabel = intl.formatMessage({
-        id: 'VoucherForm.emailLabel',
+        id: 'Recipient Email',
       });
       const emailPlaceholder = intl.formatMessage({
-        id: 'VoucherForm.emailPlaceholder',
+        id: 'Example@abc.ie',
       });
       const emailRequiredMessage = intl.formatMessage({
-        id: 'VoucherForm.emailRequired',
+        id: 'Email Required',
       });
       const emailRequired = validators.required(emailRequiredMessage);
       const emailInvalidMessage = intl.formatMessage({
-        id: 'VoucherForm.emailInvalid',
+        'Email Invalid',
+      });
+      const currencyInvalidMessage = intl.formatMessage({
+        id: 'Currency Value Invalid',
       });
       const emailValid = validators.emailFormatValid(emailInvalidMessage);
-      
+      const required = validators.parseNum(currencyInvalidMessage);
       const classes = classNames(rootClassName || css.root, className);
       const submitInProgress = inProgress;
       const submitDisabled = invalid || submitInProgress;
 
       return (
         <Form className={classes} onSubmit={handleSubmit} amount={amountSelected}>
-          <FieldTextInput
-            type="amount"
-            id={formId ? `${formId}.amount` : 'amount'}
-            name="amount"
-            autoComplete="amount"
-            label={amountLabel}
-            placeholder={amountPlaceholder}
-            validate={amountValidators}
+          <FieldCurrencyInput
+            id="FieldCurrencyInput.price"
+            name="price"
+            label="Set price:"
+            placeholder="Type in amount in EUR..."
+            currencyConfig={currencyConfigEUR}
+            validate={amountRequired}
           />
           <div>
             <FieldTextInput
