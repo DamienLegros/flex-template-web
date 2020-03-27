@@ -94,14 +94,24 @@ const routeConfiguration = () => {
       component: VouchersPage,
       },
     {
-    path: '/vouchers50',
-    name: '50Page',
-    component: props => <VouchersPage {...props} tab="50Page" />,
+      path: '/vouchers50',
+      name: '50Page',
+      component: props => <VouchersPage {...props} tab="50Page" />,
     },
     {
-    path: '/vouchersCustom',
-    name: 'customPage',
-    component: props => <VouchersPage {...props} tab="customPage" />,
+      path: '/vouchers100',
+      name: '100Page',
+      component: props => <VouchersPage {...props} tab="100Page" />,
+    },
+    {
+      path: '/vouchers200',
+      name: '200Page',
+      component: props => <VouchersPage {...props} tab="200Page" />,
+    },
+    {
+      path: '/vouchersCustom',
+      name: 'customPage',
+      component: props => <VouchersPage {...props} tab="customPage" />,
     },
     {
       path: '/l',

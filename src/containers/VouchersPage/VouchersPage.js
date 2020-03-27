@@ -15,7 +15,7 @@ import {
   Footer,
 } from '../../components';
 import { propTypes } from '../../util/types';
-import { VoucherForm } from '../../forms';
+import { CustomVoucherForm, VoucherForm } from '../../forms';
 import { voucher } from '../../ducks/Voucher.duck';
 import { isScrollingDisabled } from '../../ducks/UI.duck';
 import { manageDisableScrolling } from '../../ducks/UI.duck';
@@ -33,35 +33,50 @@ export class VouchersPageComponent extends Component {
       location,
       tab
     } = this.props;
-
-    var isChoosen = (tab === '50Page');
-    const from = location.state && location.state.from ? location.state.from : null;
-
-    const fromState = { state: from ? { from } : null };
-
+    
     const tabs = [
       {
         text: (
           <h1 className={css.tab}>
-            <FormattedMessage id="VouchersPage.50LinkText" />
+            <FormattedMessage id="VouchersPage.50LinkText" defaultMessage="50€" />
           </h1>
         ),
-        selected: isChoosen,
+        selected: tab === '50Page',
         linkProps: {
           name: '50Page',
-          to: fromState,
         },
       },
       {
         text: (
           <h1 className={css.tab}>
-            <FormattedMessage id="VouchersPage.customLinkText" />
+            <FormattedMessage id="VouchersPage.100LinkText" defaultMessage="100€" />
           </h1>
         ),
-        selected: !isChoosen,
+        selected: tab === '100Page',
+        linkProps: {
+          name: '100Page',
+        },
+      },
+      {
+        text: (
+          <h1 className={css.tab}>
+            <FormattedMessage id="VouchersPage.200LinkText" defaultMessage="200€" />
+          </h1>
+        ),
+        selected: tab === '200Page',
+        linkProps: {
+          name: '200Page',
+        },
+      },
+      {
+        text: (
+          <h1 className={css.tab}>
+            <FormattedMessage id="VouchersPage.customLinkText" defaultMessage="Custom" />
+          </h1>
+        ),
+        selected: tab === 'CustomPage',
         linkProps: {
           name: 'customPage',
-          to: fromState,
         },
       },
     ];
@@ -75,11 +90,18 @@ export class VouchersPageComponent extends Component {
     const vouchersChoice = (
       <div className={css.content}>
         <LinkTabNavHorizontal className={css.tabs} tabs={tabs} />
-        {isChoosen ? (
-          <VoucherForm className={css.form} onSubmit={handleSubmitVoucher} amount={'50'}/>
-        ) : (
-          <VoucherForm className={css.form} onSubmit={handleSubmitVoucher} amount={'custom'}/>
-        )}
+        {
+           (() => {
+               if (tab === '50Page')
+                  return <VoucherForm className={css.form} onSubmit={handleSubmitVoucher} amount={'50'}/>
+               if (tab === '100Page')
+                  return <VoucherForm className={css.form} onSubmit={handleSubmitVoucher} amount={'100'}/>
+               if (tab === '200Page')
+                  return <VoucherForm className={css.form} onSubmit={handleSubmitVoucher} amount={'200'}/>
+               if (tab === 'customPage')
+                  return <CustomVoucherForm className={css.form} onSubmit={handleSubmitVoucher}/>
+           })()
+        }
       </div>
     );
 
@@ -114,22 +136,18 @@ export class VouchersPageComponent extends Component {
   }
 }
   
-  VouchersPageComponent.defaultProps = {
-    tab: '50',
-  };
-  
   const { bool, func, object, oneOf, shape } = PropTypes;
   
-  	VouchersPageComponent.propTypes = {
-  submitSignup: func.isRequired,
-  scrollingDisabled: bool.isRequired,
-  tab: oneOf(['50', 'custom']),
-  onManageDisableScrolling: func.isRequired,
-  // from withRouter
-  location: shape({ state: object }).isRequired,
-  // from injectIntl
-  intl: intlShape.isRequired,
-};
+  VouchersPageComponent.propTypes = {
+    submitSignup: func.isRequired,
+    scrollingDisabled: bool.isRequired,
+    tab: oneOf(['50Page', '100Page', '200Page', 'customPage']),
+    onManageDisableScrolling: func.isRequired,
+    // from withRouter
+    location: shape({ state: object }).isRequired,
+    // from injectIntl
+    intl: intlShape.isRequired,
+  };
 
   const mapStateToProps = state => {
     return {

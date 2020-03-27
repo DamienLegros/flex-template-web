@@ -4,13 +4,13 @@ import { compose } from 'redux';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form as FinalForm } from 'react-final-form';
 import classNames from 'classnames';
-import { Form, PrimaryButton, FieldTextInput, FieldCurrencyInput, NamedLink } from '../../components';
+import { Form, PrimaryButton, FieldTextInput, FieldCurrencyInput } from '../../components';
 import * as validators from '../../util/validators';
 import { currencyConfig } from '../../util/test-data';
 
-import css from './VoucherForm.css';
+import css from './CustomVoucherForm.css';
 
-const VoucherFormComponent = props => (
+const CustomVoucherFormComponent = props => (
   <FinalForm
     {...props}
     render={fieldRenderProps => {
@@ -20,7 +20,6 @@ const VoucherFormComponent = props => (
         formId,
         handleSubmit,
         inProgress,
-        amountSelected,
         intl,
         invalid,
       } = fieldRenderProps;
@@ -67,7 +66,17 @@ const VoucherFormComponent = props => (
       const submitDisabled = invalid || submitInProgress;
 
       return (
-        <Form className={classes} onSubmit={handleSubmit} amount={amountSelected}>
+        <Form className={classes} onSubmit={handleSubmit}>
+          <div> 
+          <FieldCurrencyInput
+            id="FieldCurrencyInput.price"
+            name="price"
+            label="Set price:"
+            placeholder="Type in amount in EUR..."
+            currencyConfig={currencyConfigEUR}
+            validate={amountRequired}
+          />
+          </div>
           <div>
             <FieldTextInput
               type="email"
@@ -81,7 +90,7 @@ const VoucherFormComponent = props => (
           </div>
           <div className={css.bottomWrapper}>
             <PrimaryButton type="submit" inProgress={submitInProgress} disabled={submitDisabled}>
-              <FormattedMessage id="VoucherForm.buy" defaultMessage="Buy Voucher" />
+              <FormattedMessage id="CustomVoucherForm.buy" defaultMessage="Buy Voucher" />
             </PrimaryButton>
           </div>
         </Form>
@@ -90,7 +99,7 @@ const VoucherFormComponent = props => (
   />
 );
 
-VoucherFormComponent.defaultProps = {
+CustomVoucherFormComponent.defaultProps = {
   rootClassName: null,
   className: null,
   form: null,
@@ -99,7 +108,7 @@ VoucherFormComponent.defaultProps = {
 
 const { string, bool } = PropTypes;
 
-VoucherFormComponent.propTypes = {
+CustomVoucherFormComponent.propTypes = {
   rootClassName: string,
   className: string,
   form: string,
@@ -107,8 +116,8 @@ VoucherFormComponent.propTypes = {
   intl: intlShape.isRequired,
 };
 
-const VoucherForm = compose(injectIntl)(VoucherFormComponent);
-VoucherForm.displayName = 'VoucherForm';
+const CustomVoucherForm = compose(injectIntl)(CustomVoucherFormComponent);
+CustomVoucherForm.displayName = 'CustomVoucherForm';
 
 
-export default VoucherForm;
+export default CustomVoucherForm;
