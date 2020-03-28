@@ -34,8 +34,7 @@ const CustomVoucherFormComponent = props => (
       const amountRequiredMessage = intl.formatMessage({
         id: 'Amount Required',
       });
-      const amountRequired = validators.requiredIntNoTrim(amountRequiredMessage);
-      const amountValidators = validators.composeValidators(amountRequired);
+      const amountRequired = validators.required(amountRequiredMessage);
       
       const currencyConfigEUR = {
         currencyConfig,
@@ -56,11 +55,9 @@ const CustomVoucherFormComponent = props => (
       const emailInvalidMessage = intl.formatMessage({
         id: 'Email Invalid',
       });
-      const currencyInvalidMessage = intl.formatMessage({
-        id: 'Currency Value Invalid',
-      });
+
       const emailValid = validators.emailFormatValid(emailInvalidMessage);
-      const required = validators.parseNum(currencyInvalidMessage);
+
       const classes = classNames(rootClassName || css.root, className);
       const submitInProgress = inProgress;
       const submitDisabled = invalid || submitInProgress;
@@ -74,7 +71,7 @@ const CustomVoucherFormComponent = props => (
             label="Set price:"
             placeholder="Type in amount in EUR..."
             currencyConfig={currencyConfigEUR}
-            validate={amountRequired}
+            validate={validators.composeValidators(amountRequired)}
           />
           </div>
           <div>
