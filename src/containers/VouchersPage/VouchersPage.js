@@ -74,7 +74,7 @@ export class VouchersPageComponent extends Component {
             <FormattedMessage id="VouchersPage.customLinkText" defaultMessage="Custom" />
           </h1>
         ),
-        selected: tab === 'CustomPage',
+        selected: tab === 'customPage',
         linkProps: {
           name: 'customPage',
         },
