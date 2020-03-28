@@ -31,6 +31,7 @@ import {
 // at that point css bundling / imports will happen in wrong order.
 import { NamedRedirect } from './components';
 import VouchersPage from './containers/VouchersPage/VouchersPage';
+import VoucherCheckoutPage from './containers/VoucherCheckoutPage/VoucherCheckoutPage';
 
 export const ACCOUNT_SETTINGS_PAGES = [
   'ContactDetailsPage',
@@ -114,10 +115,10 @@ const routeConfiguration = () => {
       component: props => <VouchersPage {...props} tab="customPage" />,
     },
     {
-      path: '/l',
-      name: 'ListingBasePage',
-      component: RedirectToLandingPage,
-    },
+      path: '/voucherCheckout',
+      name: 'VoucherCheckoutPage',
+      component: VoucherCheckoutPage,
+      },
     {
       path: '/l/:slug/:id',
       name: 'ListingPage',
