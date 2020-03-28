@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form as FinalForm } from 'react-final-form';
 import classNames from 'classnames';
-import { Form, PrimaryButton, FieldTextInput, FieldCurrencyInput, NamedLink } from '../../components';
+import { Form, PrimaryButton, FieldTextInput, NamedLink } from '../../components';
 import * as validators from '../../util/validators';
 import { currencyConfig } from '../../util/test-data';
 
@@ -25,19 +25,6 @@ const VoucherFormComponent = props => (
         invalid,
       } = fieldRenderProps;
 
-       // amount
-      const amountLabel = intl.formatMessage({
-        id: 'Voucher Value',
-      });
-      const amountPlaceholder = intl.formatMessage({
-        id: 'Value Placeholder',
-      });
-      const amountRequiredMessage = intl.formatMessage({
-        id: 'Amount Required',
-      });
-      const amountRequired = validators.requiredIntNoTrim(amountRequiredMessage);
-      const amountValidators = validators.composeValidators(amountRequired);
-      
       const currencyConfigEUR = {
         currencyConfig,
         currency: 'EUR',
@@ -57,11 +44,7 @@ const VoucherFormComponent = props => (
       const emailInvalidMessage = intl.formatMessage({
         id: 'Email Invalid',
       });
-      const currencyInvalidMessage = intl.formatMessage({
-        id: 'Currency Value Invalid',
-      });
       const emailValid = validators.emailFormatValid(emailInvalidMessage);
-      const required = validators.parseNum(currencyInvalidMessage);
       const classes = classNames(rootClassName || css.root, className);
       const submitInProgress = inProgress;
       const submitDisabled = invalid || submitInProgress;
